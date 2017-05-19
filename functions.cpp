@@ -323,8 +323,11 @@ int udp_server::timed_recv(char *msg, size_t max_size, int max_wait_ms)
 
 int main()
 {
-    udp_client_server::udp_server("host", 8080);
-    udp_client_server::udp_client("client", 8080);
-    udp_client_server::udp_client::send("olar",4);
+    udp_client_server::udp_server* server = new udp_client_server::udp_server("127.0.0.100", 3000);
+    udp_client_server::udp_client* client = new udp_client_server::udp_client("127.0.0.100", 3000);
+    printf("%d \n",client->send("olar",5));
+    char *msg;
+    printf("%d \n",server->recv(msg, 5));
+    printf("%s \n", msg);
     return 0;
 }
