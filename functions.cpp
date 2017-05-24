@@ -55,7 +55,7 @@ udp_client::udp_client(const std::string& addr, int port)
     {
         throw udp_client_server_runtime_error(("invalid address or port: \"" + addr + ":" + decimal_port + "\"").c_str());
     }
-    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM | SOCK_CLOEXEC, IPPROTO_UDP);
+    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM /*| SOCK_CLOEXEC*/, IPPROTO_UDP);
     if(f_socket == -1)
     {
         freeaddrinfo(f_addrinfo);
@@ -188,7 +188,7 @@ udp_server::udp_server(const std::string& addr, int port)
     {
         throw udp_client_server_runtime_error(("invalid address or port for UDP socket: \"" + addr + ":" + decimal_port + "\"").c_str());
     }
-    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM | SOCK_CLOEXEC, IPPROTO_UDP);
+    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM /*| SOCK_CLOEXEC*/, IPPROTO_UDP);
     if(f_socket == -1)
     {
         freeaddrinfo(f_addrinfo);
@@ -313,21 +313,10 @@ int udp_server::timed_recv(char *msg, size_t max_size, int max_wait_ms)
     }
 
     // our socket has no data
-    errno = EAGAIN;
+    // errno = EAGAIN;
     return -1;
 }
 
 } // namespace udp_client_server
 
 // vim: ts=4 sw=4 et
-
-int main()
-{
-    udp_client_server::udp_server* server = new udp_client_server::udp_server("127.0.0.100", 3000);
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("127.0.0.100", 3000);
-    printf("%d \n",client->send("olar",5));
-    char *msg;
-    printf("%d \n",server->recv(msg, 5));
-    printf("%s \n", msg);
-    return 0;
-}
