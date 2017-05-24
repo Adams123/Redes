@@ -2,8 +2,6 @@
 #include <string.h>
 #include <unistd.h>
 
-
-
 namespace udp_client_server
 {
 
