@@ -17,6 +17,14 @@ int main()
             printf("Altitude: %s\n", msg + 1);
         } else if (msg[0] == 'T') {
             printf("Temperatura: %s\n", msg + 1);
+        }else if (msg[0] == 'D') {
+            printf("Distancia: %s\n", msg + 1);
+        }else if (msg[0] == 'P') {
+            printf("Passageiros: %s\n", msg + 1);
+        }else if (msg[0] == 'E') {
+            printf("Velocidade do vento: %s\n", msg + 1);
+        }else if (msg[0] == 'I') {
+            printf("Velocidade do aviao: %s\n", msg + 1);
         }
 
     }

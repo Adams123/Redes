@@ -1,4 +1,5 @@
 #include "functions.cpp"
+#include "header.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +30,7 @@ int main()
         std::string s = std::to_string(currentAltitude);
         s = "A" + s;
         client->send(s.c_str(), s.length() + 1);
-        usleep(rand() % 500000 + 500000); // entre meio segundo e um segundo
+        usleep(rand() % tempo + tempo); // entre meio segundo e um segundo
     }
 
     return 0;

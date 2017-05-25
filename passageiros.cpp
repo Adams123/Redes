@@ -9,26 +9,26 @@ int main()
 {
     udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
 
-    int currentTemperature = 20;
+    int passageiros = 0;
 
     while (1) {
-        // temperatura oscila entre 0 e 40
+        // passageiros oscila entre 0 e 500
         if (rand() % 100 > 50) {
-            currentTemperature += 1;
+            passageiros += 5;
         } else {
-            currentTemperature -= 1;
+            passageiros -= 5;
         }
-        if (currentTemperature > 40)
+        if (passageiros > 500)
         {
-            currentTemperature = 40;
+            passageiros = 500;
         }
-        if (currentTemperature < 0)
+        if (passageiros < 0)
         {
-            currentTemperature = 0;
+            passageiros = 0;
         }
-        printf("Temperatura: %d\n", currentTemperature);
-        std::string s = std::to_string(currentTemperature);
-        s = "T" + s;
+        printf("Passageiros: %d\n", passageiros);
+        std::string s = std::to_string(passageiros);
+        s = "P" + s;
         client->send(s.c_str(), s.length() + 1);
         usleep(rand() % tempo + tempo); // entre meio segundo e um segundo
     }
