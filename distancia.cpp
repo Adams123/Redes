@@ -11,6 +11,7 @@ int main()
 
     int currentDist = 0;
 
+    srand (time(0));
     while (1) {
         // distancia oscila entre 0 e 1000m
         if (rand() % 100 > 50) {

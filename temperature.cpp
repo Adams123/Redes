@@ -11,6 +11,7 @@ int main()
 
     int currentTemperature = 20;
 
+    srand (time(0));
     while (1) {
         // temperatura oscila entre 0 e 40
         if (rand() % 100 > 50) {

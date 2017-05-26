@@ -11,6 +11,7 @@ int main()
 
     int currentAltitude = 0;
 
+    srand (time(0));
     while (1) {
         // altitude oscila entre 0 e 20000
         if (rand() % 100 > 50) {

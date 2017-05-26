@@ -11,6 +11,7 @@ int main()
 
     int passageiros = 0;
 
+    srand (time(0));
     while (1) {
         // passageiros oscila entre 0 e 500
         if (rand() % 100 > 50) {

@@ -11,6 +11,7 @@ int main()
 
     int velAviao = 0;
 
+    srand (time(0));
     while (1) {
         // velocidade do vento oscila entre 0km/h e 900km/h
         if (rand() % 100 > 50) {
