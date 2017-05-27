@@ -2,9 +2,9 @@
 #define FUNCTIONS_H_
 
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <stdexcept>
+#include <sys/socket.h> //contem funcoes e variaveis referentes a operacoes com sockets
+#include <netdb.h> //biblioteca de operacoes de base de dados de redes
+#include <stdexcept> //biblioteca de excessoes
 #include <string>
 
 #ifdef _WIN32

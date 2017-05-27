@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <iostream>
 
 /*Identificadores de cada sensor:
 L = sensor de alien
@@ -18,9 +19,30 @@ E = sensor da direcao do vento (0 a 3, 4 direcoes basicas)
 I = sensor da velocidade do aviao
 */
 
-void detectorAliens(int distancia, int velocidade)
+void sendMessage(float msg, std::string opt)
 {
     udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    std::string s = std::to_string(msg);
+    s=opt + s;
+    client->send(s.c_str(), s.length()+1);
+}
+void sendMessage(int msg, std::string opt)
+{
+    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    std::string s = std::to_string(msg);
+    s=opt + s;
+    client->send(s.c_str(), s.length()+1);
+}
+void sendMessage(std::string msg, std::string opt)
+{
+    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    std::string s = msg;
+    s=opt + s;
+    client->send(s.c_str(), s.length()+1);
+}
+
+void detectorAliens(int distancia, int velocidade)
+{
     int alien;
     if(distancia*velocidade > 500*500)
         alien= 0; //provavelmente tem
@@ -28,47 +50,43 @@ void detectorAliens(int distancia, int velocidade)
         alien= 1; //tem
     else alien= -1; //nao tem
     std::string s = std::to_string(alien);
-    s="L" + s;
-    client->send(s.c_str(), s.length()+1);
+    sendMessage(s, "L");
 }
 
 void detectaRota(int dirVento)
 {
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
     srand (time(0));
     int dir;
     int dirVentoCerta = rand() %3; //simula a direcao correta do vento
     if(dirVento != dirVentoCerta ) dir= 0;
     dir= 1;
     std::string s = std::to_string(dir);
-    s="O" + s;
-    client->send(s.c_str(), s.length()+1);
+    sendMessage(s, "O");
 }
 
 void taPesado(int passageiros, int temperatura, int velAviao)
 {
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
     std::string s;
     if(passageiros > 300)
         if(temperatura > 30)
             if(velAviao < 600)
             {
-                s="PTa MUITO pesado";
+                s="Ta MUITO pesado";
             }
             else 
             {
-                s= "PTa bem pesado";
+                s= "Ta bem pesado";
             }
         else 
         {
-            s= "PTa pesado";
+            s= "Ta pesado";
         }
 
     else 
         {
-            s= "PTa de boa";
+            s= "Ta de boa";
         }
-        client->send(s.c_str(), s.length()+1);
+    sendMessage(s,"P");
 }
 
 float randomFloat(float max)
@@ -78,16 +96,13 @@ float randomFloat(float max)
 
 void nivelDaZoeira(const char* peso, int temperatura, int velocidade) //NUM SEI Q Q EH ISSO
 {
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
     float res;
     if(temperatura>=30 && velocidade>=600)
         if(strcmp(peso, "Ta MUITO pesado")==0) res= (randomFloat(100)+80);
         if(strcmp(peso, "Ta bem pesado")==0) res= (randomFloat(100)+50);
         if(strcmp(peso, "Ta pesado")==0) res= (randomFloat(100)+20);
         if(strcmp(peso, "Ta de boa")==0) res= (randomFloat(100));
-    std::string s = std::to_string(res);
-    s="Z" + s;
-    client->send(s.c_str(), s.length()+1);
+    sendMessage(res, "Z");
 }
 
 void killProcess(std::string nome)
@@ -123,31 +138,40 @@ void sigint(int a)
     killall();
     exit(0);
 }
+
+
+/*Dúvidas:
+0- A comunicação entre a interface e o gerenciador tem q ser via socket também?
+1- Os sensores precisam saber quando disparar para o gerenciador ou podem ficar disparando direto e o gerenciador cuida disso?
+2- Se precisar saber, como faz? Pq do jeito q foi feito, a comunicação tá via cliente/servidor, então o user funciona fazendo uma requisição para o gerenciador (ou seja, cliente envia mensagem para servidor), o gerenciador ve q q o cliente quer e dispara uma mensagem com um identificador para todos os sensores (mais cliente enviando mensagem para servidor), todos recebem mas só um dispara de volta, então todos precisam de um servidor escutando se foi requisitado ou não, e de um cliente para enviar de volta para o gerenciador, que também precisa de um cliente para disparar a requisição para os sensores e um host para receber a resposta dos sensores E para receber a requisição da interface, que também tem q ser cliente para pedir as coisas para o gerenciador E servidor para receber as informações do gerenciador
+3- Se não precisar, pode todos os sensores ficarem disparando tudo o tempo todo para o gerenciador e ele cuida do q mandar pro usuário? E mais uma vez, surgem dois hosts/clientes iguais, q ta dando pau
+*/
+
+
+
 int main()
 {
 
     //interface();
 
     //signal(SIGINT, sigint);  //caso alguem de ctrl c, chama o sigint
-    udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3000);
+    //udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3000);
     udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3000);
     srand (time(0));
-    char *msg;
-    //initAll();
-    taPesado(350,35,200);
-    server->recv(msg, 20);
-        printf("Mensagem: %s\n", msg);
-    detectaRota(0);
-    server->recv(msg, 20);
-        printf("Mensagem: %s\n", msg);
-    detectorAliens(500,500);
-    server->recv(msg, 20);
-        printf("Mensagem: %s\n", msg);
-    nivelDaZoeira("Ta MUITO pesado", 35, 650);
-    // while (1) {
-        
+    char *msg = (char*)malloc(sizeof(char)*20);
+    std::string s;
+    while(1)
+    {
+        std::cin >> s;
+        std::cout << "Enviando " << s.c_str() << std::endl;
+        client->send(s.c_str(),s.length()+1);
         server->recv(msg, 20);
-        printf("Mensagem: %s\n", msg);
+    }
+    
+
+    //initAll();
+    // while (1) {
         // if (msg[0] == 'A')
         // {
         //     printf("Altitude: %s\n", msg + 1);
