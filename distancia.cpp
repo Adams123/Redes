@@ -1,5 +1,4 @@
 #include "functions.cpp"
-#include "header.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +13,7 @@ int main()
     srand (time(0));
     while (1) {
         // distancia oscila entre 0 e 1000m
-        if (rand() % 100 > 50) {
+        if (rand() % 100 > 40) {
             currentDist += 10;
         } else {
             currentDist -= 10;

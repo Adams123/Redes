@@ -1,4 +1,4 @@
-#include "header.h"
+#include "functions.h"
 #include <string.h>
 #include <unistd.h>
 
@@ -186,7 +186,7 @@ udp_server::udp_server(const std::string& addr, int port)
     {
         throw udp_client_server_runtime_error(("invalid address or port for UDP socket: \"" + addr + ":" + decimal_port + "\"").c_str());
     }
-    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM /*| SOCK_CLOEXEC*/, IPPROTO_UDP);
+    f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM, IPPROTO_UDP);
     if(f_socket == -1)
     {
         freeaddrinfo(f_addrinfo);
