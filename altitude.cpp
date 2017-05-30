@@ -40,7 +40,7 @@ int main()
         std::string s = std::to_string(currentAltitude);
         s = "A" + s;
         server->timed_recv(msg, 2, 1); //espera até 1 seg pela requisicao
-        if(requisitado(msg))
+        if(requisitado(msg)) //verifica se o manager pediu por mensagem.
         {
             client->send(s.c_str(), s.length() + 1);
         }

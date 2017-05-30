@@ -18,7 +18,7 @@ P = sensor de quantidade de passageiros
 E = sensor da direcao do vento (0 a 3, 4 direcoes basicas)
 I = sensor da velocidade do aviao
 */
-
+//Enviar mensagem para um dado sensor.
 void sendMessage(float msg, std::string opt)
 {
     udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
@@ -41,6 +41,8 @@ void sendMessage(std::string msg, std::string opt)
     client->send(s.c_str(), s.length()+1);
 }
 
+
+//sensor de alien
 void detectorAliens(int distancia, int velocidade)
 {
     int alien;
@@ -53,6 +55,7 @@ void detectorAliens(int distancia, int velocidade)
     sendMessage(s, "L");
 }
 
+//sensor de esta ou nao na rota
 void detectaRota(int dirVento)
 {
     srand (time(0));
@@ -64,6 +67,7 @@ void detectaRota(int dirVento)
     sendMessage(s, "O");
 }
 
+//sensor de peso
 void taPesado(int passageiros, int temperatura, int velAviao)
 {
     std::string s;
@@ -89,11 +93,15 @@ void taPesado(int passageiros, int temperatura, int velAviao)
     sendMessage(s,"P");
 }
 
+
+
 float randomFloat(float max)
 {
     return ((float)rand()/(float)(RAND_MAX)*max);
 }
 
+
+//sensor de zoeira
 void nivelDaZoeira(const char* peso, int temperatura, int velocidade) //NUM SEI Q Q EH ISSO
 {
     float res;
@@ -105,6 +113,8 @@ void nivelDaZoeira(const char* peso, int temperatura, int velocidade) //NUM SEI 
     sendMessage(res, "Z");
 }
 
+
+//mata um processo
 void killProcess(std::string nome)
 {
     std::string command;
@@ -112,7 +122,9 @@ void killProcess(std::string nome)
     system(command.c_str());
 }
 
-void killall() //vira uma chamada de killProcess pra cada nome
+
+//mata todos os sensores
+void killall() //cria uma chamada de killProcess pra cada nome
 {
     
     printf("Matando dirVento \n");
@@ -123,6 +135,7 @@ void killall() //vira uma chamada de killProcess pra cada nome
     printf("Matando velAviao \n");
 }
 
+//inicializa todos os sensores
 void initAll() //os printfs vao virar system() e iniciar todos os clientes
 {
     printf("./dirVento&\n");
@@ -133,6 +146,8 @@ void initAll() //os printfs vao virar system() e iniciar todos os clientes
     printf("./velAviao&\n");
 }
 
+
+//garante que ao apertar ctrl c para parar o programa irá encerrar todos os sensores
 void sigint(int a)
 {
     killall();
