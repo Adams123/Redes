@@ -7,15 +7,17 @@
 #include <stdexcept> //biblioteca de excessoes
 #include <string>
 
-#ifdef _WIN32
-    #define tempo 5000
-#elif _APPLE_
-    #define tempo 500000
-#elif _linux_
-    #define tempo 500000
-#elif __unix
-    #define tempo 500000
-#endif
+#define tempo 500000
+
+// #ifdef _WIN32
+//     #define tempo 5000
+// #elif _APPLE_
+//     #define tempo 500000
+// #elif _linux_
+//     #define tempo 500000
+// #elif __unix
+//     #define tempo 500000
+// #endif
 
 namespace udp_client_server
 {

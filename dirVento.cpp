@@ -7,7 +7,7 @@
 
 int main()
 {
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3001);
 
     int dirVento = 0;
 

@@ -7,7 +7,7 @@
 
 int main()
 {
-    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3000);
+    udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3001);
 
     int passageiros = 0;
 
@@ -29,7 +29,7 @@ int main()
         }
         printf("Passageiros: %d\n", passageiros);
         std::string s = std::to_string(passageiros);
-        s = "P" + s;
+        s = "Q" + s;
         client->send(s.c_str(), s.length() + 1);
         usleep(rand() % tempo + tempo); // entre meio segundo e um segundo
     }

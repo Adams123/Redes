@@ -14,7 +14,7 @@ Z = sensor da zoeira
 A = sensor da altitude
 T = sensor de temperatura
 D = sensor de distancia ao objeto mais proximo
-P = sensor de quantidade de passageiros
+Q = sensor de quantidade de passageiros
 E = sensor da direcao do vento (0 a 3, 4 direcoes basicas)
 I = sensor da velocidade do aviao
 */
@@ -164,9 +164,11 @@ void sigint(int a)
 
 
 
+// TODO colocar aqui apenas os codigos para iniciar os outros programas
+//      fazer um interface.cpp para a interface
+
 int main()
 {
-
     //interface();
 
     //signal(SIGINT, sigint);  //caso alguem de ctrl c, chama o sigint

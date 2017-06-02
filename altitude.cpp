@@ -14,11 +14,11 @@ int requisitado(char *msg)
 
 int main()
 {
-    udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3001);
+    // udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3001);
     udp_client_server::udp_client* client = new udp_client_server::udp_client("localhost", 3001);
 
     int currentAltitude = 0;
-    char *msg;
+    // char *msg;
 
     srand (time(0));
     while (1) {
@@ -39,11 +39,12 @@ int main()
         printf("Altitude: %d\n", currentAltitude);
         std::string s = std::to_string(currentAltitude);
         s = "A" + s;
-        server->timed_recv(msg, 2, 1); //espera até 1 seg pela requisicao
-        if(requisitado(msg)) //verifica se o manager pediu por mensagem.
-        {
-            client->send(s.c_str(), s.length() + 1);
-        }
+        // server->timed_recv(msg, 2, 1); //espera até 1 seg pela requisicao
+        // if(requisitado(msg)) //verifica se o manager pediu por mensagem.
+        // {
+        //     client->send(s.c_str(), s.length() + 1);
+        // }
+        client->send(s.c_str(), s.length() + 1);
         usleep(rand() % tempo + tempo); // entre meio segundo e um segundo de intervalo para gerar mais valores
     }
 
