@@ -90,10 +90,11 @@ Neste projeto foi utilizado a linguagem C/C++, desenvolvido e testado apenas em 
 \section{Socket}
 Para a implementação do socket, foram utilizadas principalmente as bibliotecas \textit{sys/socket.h} e \textit{netdb.h}. Foi escolhida uma abordagem de cliente/servidor utilizando conexão UDP com chamada bloqueante, pois foi esta que mais tivemos documentações disponíveis online. Outras funções exclusivas do sistema Linux foram utilizadas, como \textit{getaddrinfo} e \textit{freeaddrinfo}.\\
 A estrutura do cliente e do servidor são parecidas, ambos construtores recebem um endereço e uma porta para comunicar, e recebem as mesmas propriedades de conexão (como protocolo e tipo de socket), porém o servidor é associado a um único endereço, criando uma chamada bloqueante.\\
-As funções send e recv foram utilizadas para enviar e receber mensagens pelo endereço/porta definidos nos construtores.
+As funções \textit{send} e \textit{recv} foram utilizadas para enviar e receber mensagens pelo endereço/porta definidos nos construtores.
 \section{Sensores}
 Para este projeto decidimos pela criação dos sensores reais \textit{Altitude}, \textit{Temperatura}, \textit{Distância}, \textit{Velocidade do avião}, \textit{Direção do vento} e \textit{Quantidade de passageiros} e dos sensores virtuais \textit{Peso}, \textit{Rota}, \textit{Aliens} e \textit{Nível da zoeira}. Todos os sensores virtuais utilizam 3 valores obtidos pelos sensores reais como entrada.\\
-Cada sensor real possui um canal de comunicação com o \textit{gerenciador} e o mesmo é responsável por receber todos esses dados, calcular os dados dos sensores virtuais e mostrar todas essas informações para o usuário.
+Cada sensor real possui um canal de comunicação com o \textit{gerenciador} e o mesmo é responsável por receber todos esses dados, calcular os dados dos sensores virtuais e mostrar todas essas informações para o usuário.\\
 \section{Manual de Usuário}
-Disponibilizamos um \textit{Makefile} e, portanto, basta utilizar o comando \textit{make} para compilar e o comando \textit{make run} para executar o programa. O \textit{make run} iniciará o \textit{gerenciador}, o qual irá iniciar todos os sensores.
+Disponibilizamos um \textit{Makefile} e, portanto, basta utilizar o comando \textit{make all} para compilar e o comando \textit{make run} para executar o programa. O \textit{make run} iniciará o \textit{gerenciador}, o qual irá iniciar todos os sensores.\\
+Os sensores rodam separadamente como um programa, enviando informações para o gerenciador. Ao iniciar o gerenciador, todos os sensores são inicializados. Se o gerenciador é encerrado, uma função cuida de encerrar o processo de cada sensor. Para encerrar o gerenciador, o \textit{CTRL+C} é necessário, uma vez que tudo roda em um loop infinito.
 \end{document}
