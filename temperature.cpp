@@ -27,7 +27,6 @@ int main()
         {
             currentTemperature = 0;
         }
-        printf("Temperatura: %d\n", currentTemperature);
         std::string s = std::to_string(currentTemperature);
         s = "T" + s;
         client->send(s.c_str(), s.length() + 1);

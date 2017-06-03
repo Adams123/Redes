@@ -27,7 +27,6 @@ int main()
         {
             passageiros = 0;
         }
-        printf("Passageiros: %d\n", passageiros);
         std::string s = std::to_string(passageiros);
         s = "Q" + s;
         client->send(s.c_str(), s.length() + 1);

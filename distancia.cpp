@@ -26,7 +26,6 @@ int main()
         {
             currentDist = 0;
         }
-        printf("Distancia: %d\n", currentDist);
         std::string s = std::to_string(currentDist);
         s = "D" + s;
         client->send(s.c_str(), s.length() + 1);

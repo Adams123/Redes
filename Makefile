@@ -1,6 +1,5 @@
 all:
 	g++ -std=c++11 -c functions.cpp -o functions
-	g++ -std=c++11 main.cpp -o main
 	g++ -std=c++11 gerenciador.cpp -o gerenciador
 	g++ -std=c++11 temperature.cpp -o temperature
 	g++ -std=c++11 altitude.cpp -o altitude
@@ -10,7 +9,16 @@ all:
 	g++ -std=c++11 distancia.cpp -o distancia
 
 run:
-	./temperature& ./altitude& ./dirVento& ./passageiros& ./velAviao& ./distancia& ./main
+	./gerenciador
 
 clean:
-	rm -f temperature altitude dirVento main gerenciador functions velAviao passageiros distancia
+	rm -f functions gerenciador temperature altitude dirVento passageiros velAviao distancia
+
+kill:
+	ps axf | grep temperature | grep -v grep | awk '{print "kill " $1}' | sh
+	ps axf | grep altitude | grep -v grep | awk '{print "kill " $1}' | sh
+	ps axf | grep dirVento | grep -v grep | awk '{print "kill " $1}' | sh
+	ps axf | grep passageiros | grep -v grep | awk '{print "kill " $1}' | sh
+	ps axf | grep velAviao | grep -v grep | awk '{print "kill " $1}' | sh
+	ps axf | grep distancia | grep -v grep | awk '{print "kill " $1}' | sh
+

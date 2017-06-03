@@ -15,7 +15,6 @@ int main()
     while (1) {
         // velocidade do vento oscila entre 10km e 90km
         dirVento = rand() % 3;
-        printf("Direcao do vento: %d\n", dirVento);
         std::string s = std::to_string(dirVento);
         s = "E" + s;
         client->send(s.c_str(), s.length() + 1);

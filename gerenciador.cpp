@@ -1,6 +1,7 @@
 #include "gerenciador.h"
 #include "functions.cpp"
 
+
 /*Identificadores de cada sensor:
 A = sensor da altitude
 T = sensor de temperatura
@@ -17,6 +18,7 @@ char distancia[10];
 char passageiros[10];
 char direcaoVento[10];
 char velocidadeAviao[10];
+char zoeira[10];
 
 // sensor de alien
 void detectorAliens(int distancia, int velocidade, int altitude)
@@ -64,10 +66,26 @@ void taPesado(int passageiros, int temperatura, int velAviao)
         {
             s= "Ta de boa";
         }
-    // sendMessage(s,"P");
     printf("Tá pesado?: %s\n", s.c_str());
 }
 
+float randomFloat(float max)
+{
+    return ((float)rand()/(float)(RAND_MAX)*max);
+}
+void nivelZoeira(const char* peso, int temperatura, int velocidade)
+{
+    float res;
+    if(temperatura>=30 && velocidade>=600)
+    {
+        if(strcmp(peso, "Ta MUITO pesado")==0) res=(randomFloat(100)+80);
+        if(strcmp(peso, "Ta bem pesado")==0) res=(randomFloat(100)+50);
+        if(strcmp(peso, "Ta pesado")==0) res=(randomFloat(100)+20);
+        if(strcmp(peso, "Ta de boa")==0) res=(randomFloat(100));
+        printf("A zoeira esta em: %f", res);
+    }
+
+}
 char parseDirVento(int dirVento) {
     switch (dirVento) {
         case 0:
@@ -84,6 +102,44 @@ char parseDirVento(int dirVento) {
             break;
     }
     return ' ';
+}
+
+void killProcess(std::string nome)
+{
+    std::string command;
+    command = "pkill "+nome;
+    system(command.c_str());
+}
+
+//mata todos os sensores
+void killall() //cria uma chamada de killProcess pra cada nome
+{
+    
+    killProcess("dirVento \n");
+    killProcess("altitude \n");
+    killProcess("distancia \n");
+    killProcess("passageiros \n");
+    killProcess("temperature \n");
+    killProcess("velAviao \n");
+}
+
+//inicializa todos os sensores
+void initAll() //os printfs vao virar system() e iniciar todos os clientes
+{
+    system("./dirVento&\n");
+    system("./altitude&\n");
+    system("./distancia&\n");
+    system("./passageiros&\n");
+    system("./temperature&\n");
+    system("./velAviao&\n");
+}
+
+
+//garante que ao apertar ctrl c para parar o programa irá encerrar todos os sensores
+void sigint(int a)
+{
+    killall();
+    exit(0);
 }
 
 void printData() {
@@ -143,7 +199,6 @@ int parseOpt(char *msg)
             strcpy(velocidadeAviao, msg + 1);
             printData();
             break;
-
         default:
             return -1;
             break;
@@ -153,6 +208,8 @@ int parseOpt(char *msg)
 
 int main()
 {
+    signal(SIGINT, sigint);
+
     // inicialização das variaveis globais
     altitude[0] = '\0';
     temperatura[0] = '\0';
@@ -160,13 +217,14 @@ int main()
     passageiros[0] = '\0';
     direcaoVento[0] = '\0';
     velocidadeAviao[0] = '\0';
-
+    zoeira[0] = '\0';
     udp_client_server::udp_server* server = new udp_client_server::udp_server("localhost", 3001);
-
+    initAll();
+    char *msg = (char*)malloc(sizeof(char)*10);
     while (1) {
-        char *msg;
+        msg[0]='\0'; //"limpando" a mensagem
         server->recv(msg, 10);
         parseOpt(msg);
     }
-
+    std::atexit(killall); //executa a funcao caso o programa encerre
 }

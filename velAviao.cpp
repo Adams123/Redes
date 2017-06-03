@@ -27,7 +27,6 @@ int main()
         {
             velAviao = 0;
         }
-        printf("Velocidade do aviao: %d\n", velAviao);
         std::string s = std::to_string(velAviao);
         s = "I" + s;
         client->send(s.c_str(), s.length() + 1);

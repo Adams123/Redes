@@ -7,5 +7,6 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
+#include <signal.h>
 
 #endif

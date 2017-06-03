@@ -36,7 +36,6 @@ int main()
         {
             currentAltitude = 0;
         }
-        printf("Altitude: %d\n", currentAltitude);
         std::string s = std::to_string(currentAltitude);
         s = "A" + s;
         // server->timed_recv(msg, 2, 1); //espera até 1 seg pela requisicao
