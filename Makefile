@@ -13,12 +13,3 @@ run:
 
 clean:
 	rm -f functions gerenciador temperature altitude dirVento passageiros velAviao distancia
-
-kill:
-	ps axf | grep temperature | grep -v grep | awk '{print "kill " $1}' | sh
-	ps axf | grep altitude | grep -v grep | awk '{print "kill " $1}' | sh
-	ps axf | grep dirVento | grep -v grep | awk '{print "kill " $1}' | sh
-	ps axf | grep passageiros | grep -v grep | awk '{print "kill " $1}' | sh
-	ps axf | grep velAviao | grep -v grep | awk '{print "kill " $1}' | sh
-	ps axf | grep distancia | grep -v grep | awk '{print "kill " $1}' | sh
-

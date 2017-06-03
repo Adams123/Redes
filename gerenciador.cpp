@@ -75,16 +75,15 @@ float randomFloat(float max)
 }
 void nivelZoeira(const char* peso, int temperatura, int velocidade)
 {
-    float res;
+    float res=0;
     if(temperatura>=30 && velocidade>=600)
     {
         if(strcmp(peso, "Ta MUITO pesado")==0) res=(randomFloat(100)+80);
         if(strcmp(peso, "Ta bem pesado")==0) res=(randomFloat(100)+50);
         if(strcmp(peso, "Ta pesado")==0) res=(randomFloat(100)+20);
         if(strcmp(peso, "Ta de boa")==0) res=(randomFloat(100));
-        printf("A zoeira esta em: %f", res);
     }
-
+    printf("A zoeira esta em: %f", res);
 }
 char parseDirVento(int dirVento) {
     switch (dirVento) {
@@ -159,8 +158,6 @@ void printData() {
 
 int parseOpt(char *msg)
 {
-    // printf("Parse\n");
-    // char *msgRcv = (char*)malloc(sizeof(char)*20);
     switch(msg[0])
     {
         case 'A': //sensor da altitude
