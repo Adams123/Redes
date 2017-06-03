@@ -1,0 +1,104 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{indentfirst}
+\usepackage{amsthm,amsfonts,amsmath,amssymb}
+\usepackage[brazilian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage[usenames,dvipsnames]{xcolor} 
+\usepackage{pgf,tikz}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{xcolor,colortbl}
+\usepackage{changepage}
+\usepackage{geometry}
+\usepackage[pdftex]{hyperref}
+\usepackage{listings}
+\usepackage[normalem]{ulem}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{multirow,array,varwidth}
+\usepackage{tabularx}
+\usepackage{makeidx}
+\usepackage[nottoc]{tocbibind}
+\usepackage{caption}
+\usepackage{etoolbox}
+\usepackage{longtable}
+\usepackage{calc}
+\geometry{a4paper,inner=2.0cm,outer=2.0cm,top=2.0cm,bottom=2.0cm}
+\setenumerate[1]{label=\thesubsection.\arabic*.}
+\setenumerate[2]{label*=\arabic*.}
+
+\setlength{\tabcolsep}{6pt}
+
+\newcommand*\NewPage{\newpage\null\thispagestyle{empty}\newpage}
+\newcommand{\Barra}{\ensuremath{\backslash}}
+
+\newcommand\Data[3]{\ensuremath{#1\backslash #2\backslash #3}}
+
+\newcounter{magicrownumbers}
+\newcommand\rownumber{\stepcounter{magicrownumbers}\arabic{magicrownumbers}}
+
+\setlength{\columnsep}{1cm}
+\addto\captionsbrazilian{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Tabela de Conteúdo}%
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+	UNIVERSIDADE DE SÃO PAULO – USP
+	
+	INSTITUTO DE CIÊNCIAS MATEMÁTICAS E DE COMPUTAÇÃO
+	
+	DEPARTAMENTO DE SISTEMAS DE COMPUTAÇÃO
+	
+	\vspace{7cm}
+	
+	\Large{\textbf{Relatório Sistema Aeronave}}\\
+	
+	\vspace{6cm}
+	
+	Adams Vietro Codignotto da Silva - $6791943$ \\ 
+	Sabrina Faceroli Tridico - $9066452$\\
+	Lucas Fronza - $8124184$\\
+	
+		
+	
+	\vspace{6cm}
+	
+	São Carlos
+	
+	2017
+\end{center}
+
+\NewPage
+\pagenumbering{arabic}
+
+\tableofcontents
+
+\newpage
+
+\section{Introdução}
+Neste projeto foi utilizado a linguagem C/C++, desenvolvido e testado apenas em ambientes Linux e Mac, e seu funcionamento em Windows não é garantido. Foram utilizadas bibliotecas padrões nativas do gcc, então não é necessário de nenhum pacote adicional.
+\section{Socket}
+Para a implementação do socket, foram utilizadas principalmente as bibliotecas \textit{sys/socket.h} e \textit{netdb.h}. Foi escolhido uma abordagem de cliente/servidor utilizando conexão UDP com chamada bloqueante, pois foi esta que mais tivemos documentações disponíveis online. Outras funções exclusivas do sistema Linux foram utilizadas, como \textit{getaddrinfo} e \textit{freeaddrinfo}.\\
+A estrutura do cliente e do servidor são parecidas, ambos construtores recebem um endereço e uma porta para comunicar, e recebem as mesmas propriedades de conexão (como protocolo e tipo de socket), porém o servidor é associado a um único endereço, criando uma chamada bloqueante.\\
+As funções send e recv foram utilizadas para enviar e receber mensagens pelo endereço/porta definidos nos construtores.
+\section{Sensores}
+%------COMENTÁRIO COM %
+%Só digitar normal, \textbf{text} é negrito, \textit{text} é itálico
+%Pra pular a linha é só colocar \\ no final do parágrafo
+
+%digita aqui a parte do sensor
+\section{Manual de Usuário}
+%digita aqui a parte do manual do usuário
+
+%\section{Conclusão} -- precisa?
+\end{document}
