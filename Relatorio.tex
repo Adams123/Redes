@@ -67,7 +67,7 @@
 	
 	Adams Vietro Codignotto da Silva - $6791943$ \\ 
 	Sabrina Faceroli Tridico - $9066452$\\
-	Lucas Fronza - $8124184$\\
+	Lucas Bortolini Fronza - $8124184$\\
 	
 		
 	
@@ -88,17 +88,12 @@
 \section{Introdução}
 Neste projeto foi utilizado a linguagem C/C++, desenvolvido e testado apenas em ambientes Linux e Mac, e seu funcionamento em Windows não é garantido. Foram utilizadas bibliotecas padrões nativas do gcc, então não é necessário de nenhum pacote adicional.
 \section{Socket}
-Para a implementação do socket, foram utilizadas principalmente as bibliotecas \textit{sys/socket.h} e \textit{netdb.h}. Foi escolhido uma abordagem de cliente/servidor utilizando conexão UDP com chamada bloqueante, pois foi esta que mais tivemos documentações disponíveis online. Outras funções exclusivas do sistema Linux foram utilizadas, como \textit{getaddrinfo} e \textit{freeaddrinfo}.\\
+Para a implementação do socket, foram utilizadas principalmente as bibliotecas \textit{sys/socket.h} e \textit{netdb.h}. Foi escolhida uma abordagem de cliente/servidor utilizando conexão UDP com chamada bloqueante, pois foi esta que mais tivemos documentações disponíveis online. Outras funções exclusivas do sistema Linux foram utilizadas, como \textit{getaddrinfo} e \textit{freeaddrinfo}.\\
 A estrutura do cliente e do servidor são parecidas, ambos construtores recebem um endereço e uma porta para comunicar, e recebem as mesmas propriedades de conexão (como protocolo e tipo de socket), porém o servidor é associado a um único endereço, criando uma chamada bloqueante.\\
 As funções send e recv foram utilizadas para enviar e receber mensagens pelo endereço/porta definidos nos construtores.
 \section{Sensores}
-%------COMENTÁRIO COM %
-%Só digitar normal, \textbf{text} é negrito, \textit{text} é itálico
-%Pra pular a linha é só colocar \\ no final do parágrafo
-
-%digita aqui a parte do sensor
+Para este projeto decidimos pela criação dos sensores reais \textit{Altitude}, \textit{Temperatura}, \textit{Distância}, \textit{Velocidade do avião}, \textit{Direção do vento} e \textit{Quantidade de passageiros} e dos sensores virtuais \textit{Peso}, \textit{Rota}, \textit{Aliens} e \textit{Nível da zoeira}. Todos os sensores virtuais utilizam 3 valores obtidos pelos sensores reais como entrada.\\
+Cada sensor real possui um canal de comunicação com o \textit{gerenciador} e o mesmo é responsável por receber todos esses dados, calcular os dados dos sensores virtuais e mostrar todas essas informações para o usuário.
 \section{Manual de Usuário}
-%digita aqui a parte do manual do usuário
-
-%\section{Conclusão} -- precisa?
+Disponibilizamos um \textit{Makefile} e, portanto, basta utilizar o comando \textit{make} para compilar e o comando \textit{make run} para executar o programa. O \textit{make run} iniciará o \textit{gerenciador}, o qual irá iniciar todos os sensores.
 \end{document}

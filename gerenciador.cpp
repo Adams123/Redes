@@ -44,7 +44,7 @@ void detectaRota(int dirVento, int velAviao, int distancia)
 }
 
 // sensor de peso
-void taPesado(int passageiros, int temperatura, int velAviao)
+const char* taPesado(int passageiros, int temperatura, int velAviao)
 {
     std::string s;
     if(passageiros > 20)
@@ -67,6 +67,7 @@ void taPesado(int passageiros, int temperatura, int velAviao)
             s= "Ta de boa";
         }
     printf("Tá pesado?: %s\n", s.c_str());
+    return s.c_str();
 }
 
 float randomFloat(float max)
@@ -75,15 +76,15 @@ float randomFloat(float max)
 }
 void nivelZoeira(const char* peso, int temperatura, int velocidade)
 {
-    float res=0;
-    if(temperatura>=30 && velocidade>=600)
+    float res = randomFloat(10);
+    if(temperatura >= 30 && velocidade >= 600)
     {
         if(strcmp(peso, "Ta MUITO pesado")==0) res=(randomFloat(100)+80);
         if(strcmp(peso, "Ta bem pesado")==0) res=(randomFloat(100)+50);
         if(strcmp(peso, "Ta pesado")==0) res=(randomFloat(100)+20);
         if(strcmp(peso, "Ta de boa")==0) res=(randomFloat(100));
     }
-    printf("A zoeira esta em: %f", res);
+    printf("A zoeira esta em: %.2f%%\n", res);
 }
 char parseDirVento(int dirVento) {
     switch (dirVento) {
@@ -152,8 +153,9 @@ void printData() {
     printf("Velocidade do aviao: %s km/h\n", velocidadeAviao);
     printf("---------- Dados dos sensores Virtuais ----------\n");
     detectaRota(atoi(direcaoVento), atoi(velocidadeAviao), atoi(distancia));
-    taPesado(atoi(passageiros), atoi(temperatura), atoi(velocidadeAviao));
+    const char *s = taPesado(atoi(passageiros), atoi(temperatura), atoi(velocidadeAviao));
     detectorAliens(atoi(distancia), atoi(velocidadeAviao), atoi(altitude));
+    nivelZoeira(s, atoi(temperatura), atoi(velocidadeAviao));
 }
 
 int parseOpt(char *msg)

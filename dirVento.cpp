@@ -13,7 +13,7 @@ int main()
 
     srand (time(0));
     while (1) {
-        // velocidade do vento oscila entre 10km e 90km
+        // velocidade do vento oscila entre 0, 1, 2 e 3
         dirVento = rand() % 3;
         std::string s = std::to_string(dirVento);
         s = "E" + s;

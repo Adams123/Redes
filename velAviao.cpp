@@ -13,7 +13,7 @@ int main()
 
     srand (time(0));
     while (1) {
-        // velocidade do vento oscila entre 0km/h e 900km/h
+        // velocidade do aviao oscila entre 0km/h e 900km/h
         if (rand() % 100 > 50) {
             velAviao += 10;
         } else {
